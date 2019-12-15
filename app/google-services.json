@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "73652486336",
+    "firebase_url": "https://fampay-f7ee8.firebaseio.com",
+    "project_id": "fampay-f7ee8",
+    "storage_bucket": "fampay-f7ee8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73652486336:android:1c44c049ad5b131131ed25",
+        "android_client_info": {
+          "package_name": "com.example.fampayassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73652486336-30fjs676qcm59sk1jpum9ks39a274641.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fampayassignment",
+            "certificate_hash": "832b3f49b88ede9969df2998040bdef8a4912b38"
+          }
+        },
+        {
+          "client_id": "73652486336-tf31p8m4inu1oe4gjnlgctnalp6995fm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg-3pTiar5RjMtKNO_TtbAEG58jRawKfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73652486336-tf31p8m4inu1oe4gjnlgctnalp6995fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
