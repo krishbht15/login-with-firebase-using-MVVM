@@ -13,6 +13,7 @@ public class RegisterViewModel extends AndroidViewModel {
     private RegisterRepository registerRepository;
     public RegisterViewModel(@NonNull Application application) {
         super(application);
+        this.registerRepository=new RegisterRepository(application);
         this.firebaseRepository=new FirebaseRepositoryImpl(application.getBaseContext());
     }
     public void register(String email,String pass){

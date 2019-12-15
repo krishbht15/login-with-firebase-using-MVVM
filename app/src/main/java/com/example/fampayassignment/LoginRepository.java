@@ -20,9 +20,7 @@ public class LoginRepository {
     public void insert(LoginPojo loginPojo) {
         new InsertNoteAsyncTask(loginDao).execute(loginPojo);
     }
-    public void delete(LoginPojo loginPojo) {
-        new DeleteNoteAsyncTask(loginDao).execute(loginPojo);
-    }
+
 
     public void deleteAllNotes() {
         new DeleteAllNotesAsyncTask(loginDao).execute();
@@ -45,6 +43,9 @@ public class LoginRepository {
             loginDao.insert(notes[0]);
             return null;
         }
+    }
+    public void delete(LoginPojo loginPojo) {
+        new DeleteNoteAsyncTask(loginDao).execute(loginPojo);
     }
     private static class DeleteNoteAsyncTask extends AsyncTask<LoginPojo, Void, Void> {
         private LoginDao loginDao;

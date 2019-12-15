@@ -36,6 +36,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,12 +48,19 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityLoginBinding activityLoginBinding;
+    private int check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         context = LoginActivity.this;
+        check=getIntent().getIntExtra(Constants.ADD_USERS,0);
+        if(SharedPreferenceImpl.getInstance().get(Constants.HAS_USERS,context).equals("y") && check==0){
+
+            startActivity(new Intent(context,MainActivity.class));
+            finish();
+        }
         final AccountManager accountManager=AccountManager.get(context);
 
         mAuth = FirebaseAuth.getInstance();
@@ -88,9 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                     boolean success = accountManager.addAccountExplicitly(account,activityLoginBinding.passwordEditText.getText().toString(),null);
                     if(success){
                         Log.d(TAG,"Account created");
+                        SharedPreferenceImpl.getInstance().save(Constants.HAS_USERS,"y",LoginActivity.this);
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
                     }else{
                         Log.d(TAG,"Account creation failed. Look at previous logs to investigate");
-                    }       startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    }
                 } else {
                     Log.d(TAG, "onChanged: no login");
 
@@ -104,48 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        activityLoginBinding.forgout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.sendPasswordResetEmail(activityLoginBinding.emailEditText.getText().toString().trim())
 
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                                }
-
-//                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-            }
-        });
-        activityLoginBinding.googleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
-        activityLoginBinding.signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                mGoogleSignInClient.signOut().addOnCompleteListener(LoginActivity.this,
-                        new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                            }
-                        });
-                if (mAuth.getCurrentUser() == null || mAuth.getCurrentUser().getDisplayName() == null) {
-                    Log.d(TAG, "onClick: khaali hai");
-                    Toast.makeText(LoginActivity.this, "khaali hai", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void signIn() {

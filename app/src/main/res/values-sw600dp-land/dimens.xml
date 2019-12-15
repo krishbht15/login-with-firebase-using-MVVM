@@ -1,0 +1,12 @@
+<resources>
+	<dimen name="dimen_16dp">19.2dp</dimen>
+	<dimen name="dimen_24dp">28.8dp</dimen>
+	<dimen name="dimen_20dp">24dp</dimen>
+	<dimen name="dimen_32dp">38.4dp</dimen>
+	<dimen name="dimen_8dp">9.6dp</dimen>
+	<dimen name="dimen_40dp">48dp</dimen>
+	<dimen name="dimen_24sp">28.8sp</dimen>
+	<dimen name="dimen_20sp">24sp</dimen>
+	<dimen name="dimen_40sp">48sp</dimen>
+	<dimen name="dimen_16sp">19.2sp</dimen>
+</resources>

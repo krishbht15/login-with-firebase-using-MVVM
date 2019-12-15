@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +32,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 private FirebaseUser user;
 private FirebaseAuth mAuth;
+private UsersPojo usersPojo=null;
 private RegisterViewModel registerViewModel;
 private ActivityRegisterBinding activityRegisterBinding;
     private static final String TAG = "RegisterActivity";
@@ -61,8 +68,33 @@ registerViewModel.getRegisterLiveData().observe(this, new Observer<UsersPojo>() 
     public void onChanged(UsersPojo usersPojo) {
         if(usersPojo!=null){
             Log.d(TAG, "onChanged: fulllllllllllll");
+            LoginPojo loginPojo=null;
+            Log.d(TAG, "onChanged:ss "+usersPojo.getEmail()+"  "+activityRegisterBinding.passwordEditText.getText().toString());
+            String pwd="";
+            try {
+                  pwd=EncryptionClass.encrypt(activityRegisterBinding.passwordEditText.getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AccountManager accountManager = AccountManager.get(RegisterActivity.this); //this is Activity
+            Account account = new Account(usersPojo.getEmail(),"com.example.fampayassignment");
+
+            boolean success = accountManager.addAccountExplicitly(account,activityRegisterBinding.passwordEditText.getText().toString(),null);
+            if(success){
+                Log.d(TAG,"Account created");
+            }else{
+                Log.d(TAG,"Account creation failed. Look at previous logs to investigate");
+            }
+            loginPojo=new LoginPojo(usersPojo.getEmail(),pwd);
+
+            registerViewModel.insert(loginPojo);
+            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+            finish();
+
         }
     }
 });
     }
+
 }
