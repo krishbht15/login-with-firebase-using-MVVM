@@ -44,87 +44,87 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private static final String TAG = "LoginActivity";
     private GoogleSignInClient mGoogleSignInClient;
-private ActivityLoginBinding activityLoginBinding;
+    private ActivityLoginBinding activityLoginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       activityLoginBinding= DataBindingUtil. setContentView(this,R.layout.activity_login);
-       context=LoginActivity.this;
-       mAuth=FirebaseAuth.getInstance();
-        loginViewModel=  ViewModelProviders.of(this).get(LoginViewModel.class);
+        activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        context = LoginActivity.this;
+        mAuth = FirebaseAuth.getInstance();
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-activityLoginBinding.signInButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-       loginViewModel.login(activityLoginBinding.emailEditText.getText().toString(),activityLoginBinding.passwordEditText.getText().toString());
-    }
-});
-loginViewModel.getLoginMutableData().observe(this, new Observer<FirebaseUser>() {
-    @Override
-    public void onChanged(FirebaseUser firebaseUser) {
-        if(firebaseUser!=null){
-            Log.d(TAG, "onChanged: HOgya bhai login");
-        }
-else {
-            Log.d(TAG, "onChanged: na hua bhai login");
+        activityLoginBinding.signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginViewModel.login(activityLoginBinding.emailEditText.getText().toString(), activityLoginBinding.passwordEditText.getText().toString());
+            }
+        });
+        loginViewModel.getLoginMutableData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null) {
+                    Log.d(TAG, "onChanged:   login");
+                } else {
+                    Log.d(TAG, "onChanged: no login");
 
-        }
-    }
-});
+                }
+            }
+        });
         activityLoginBinding.CreateAnAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 
-activityLoginBinding.forgout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-mAuth.sendPasswordResetEmail(activityLoginBinding.emailEditText.getText().toString().trim())
-
-        .addOnCompleteListener(new OnCompleteListener<Void>() {
+        activityLoginBinding.forgout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                mAuth.sendPasswordResetEmail(activityLoginBinding.emailEditText.getText().toString().trim())
+
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                }
 
 //                progressBar.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
-    }
-});
-activityLoginBinding.googleButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        signIn();
-    }
-});
-activityLoginBinding.signout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        mAuth.signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(LoginActivity.this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        activityLoginBinding.googleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+        activityLoginBinding.signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                mGoogleSignInClient.signOut().addOnCompleteListener(LoginActivity.this,
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                    }
-                });
-        if(mAuth.getCurrentUser()==null || mAuth.getCurrentUser().getDisplayName()==null){
-            Log.d(TAG, "onClick: khaali hai");
-            Toast.makeText(LoginActivity.this, "khaali hai", Toast.LENGTH_SHORT).show();
-        }
-    }
-});
+                            }
+                        });
+                if (mAuth.getCurrentUser() == null || mAuth.getCurrentUser().getDisplayName() == null) {
+                    Log.d(TAG, "onClick: khaali hai");
+                    Toast.makeText(LoginActivity.this, "khaali hai", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void signIn() {
@@ -146,7 +146,7 @@ activityLoginBinding.signout.setOnClickListener(new View.OnClickListener() {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                Log.d(TAG, "onActivityResult: "+e.getMessage());
+                Log.d(TAG, "onActivityResult: " + e.getMessage());
                 // ...
             }
         }
@@ -165,7 +165,7 @@ activityLoginBinding.signout.setOnClickListener(new View.OnClickListener() {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 //                            updateUI(user);
-                            Toast.makeText(LoginActivity.this, "user hai "+user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "user hai " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
