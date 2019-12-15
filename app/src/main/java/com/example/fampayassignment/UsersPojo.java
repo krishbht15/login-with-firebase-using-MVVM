@@ -1,7 +1,7 @@
 package com.example.fampayassignment;
 
 public class UsersPojo {
-    private String city,name,email;
+    private String city,name,email,phone;
 
     public String getCity() {
         return city;
@@ -27,9 +27,18 @@ public class UsersPojo {
         this.email = email;
     }
 
-    public UsersPojo(String city, String name, String email) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public UsersPojo(String city, String name, String email, String phone) {
         this.city = city;
         this.name = name;
         this.email = email;
+        this.phone = phone;
     }
 }
