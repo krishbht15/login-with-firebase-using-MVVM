@@ -62,7 +62,8 @@ loginMutableLiveData.postValue(null);
     @Override
     public void addDatabase(final UsersPojo usersPojo) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Task<Void> myRef = database.getReference().child("users").child(usersPojo.getPhone()).setValue(usersPojo);
+        FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
+        Task<Void> myRef = database.getReference().child("users").child(currentUser.getUid()).setValue(usersPojo);
         myRef.addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

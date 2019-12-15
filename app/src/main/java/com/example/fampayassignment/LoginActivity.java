@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         context = LoginActivity.this;
+        final AccountManager accountManager=AccountManager.get(context);
+
         mAuth = FirebaseAuth.getInstance();
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
@@ -78,7 +82,15 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     loginViewModel.insert(loginPojo);
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    AccountManager accountManager = AccountManager.get(LoginActivity.this); //this is Activity
+                    Account account = new Account(firebaseUser.getEmail(),"com.example.fampayassignment");
+
+                    boolean success = accountManager.addAccountExplicitly(account,activityLoginBinding.passwordEditText.getText().toString(),null);
+                    if(success){
+                        Log.d(TAG,"Account created");
+                    }else{
+                        Log.d(TAG,"Account creation failed. Look at previous logs to investigate");
+                    }       startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 } else {
                     Log.d(TAG, "onChanged: no login");
 

@@ -2,7 +2,6 @@ package com.example.fampayassignment;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
 
 import androidx.lifecycle.LiveData;
 

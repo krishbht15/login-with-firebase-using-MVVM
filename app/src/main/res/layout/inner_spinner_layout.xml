@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<CheckedTextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/black"
+    android:text="nlnslnalsan"
+    android:singleLine="true"
+    android:id="@+id/components"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dimen_8dp"
+    android:paddingBottom="@dimen/dimen_8dp"
+    android:paddingLeft="@dimen/dimen_20dp"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:fontFamily="@font/circular_std_medium_family"
+    android:textSize="@dimen/dimen_16sp"
+    android:lineHeight="@dimen/dimen_24sp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+
+
+<!--<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/dropdownListPreferredItemHeight"
+    android:ellipsize="marquee"/>-->

@@ -65,46 +65,4 @@ registerViewModel.getRegisterLiveData().observe(this, new Observer<UsersPojo>() 
     }
 });
     }
-//    public void addDatabase(){
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        Map<String,Object> map=new HashMap<>();
-//        Object usersPojo=new UsersPojo("delhi",activityRegisterBinding.nameEditText.getText().toString() ,activityRegisterBinding.emailEditText.getText().toString());
-//        map.put(activityRegisterBinding.phoneEditText.getText().toString(),usersPojo);
-//        Task<Void> myRef = database.getReference().child("users").child(activityRegisterBinding.phoneEditText.getText().toString()).setValue(usersPojo);
-//        myRef.addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()){
-//                    Log.d(TAG, "onComplete: hoyga");
-//                }
-//                else {
-//                    Log.d(TAG, "onComplete: nhi hua "+task.getException().getMessage());
-//                }
-//            }
-//        });
-//    }
-//    public void create(){
-//        mAuth.createUserWithEmailAndPassword(activityRegisterBinding.emailEditText.getText().toString().trim(), activityRegisterBinding.passwordEditText.toString())
-//                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                             user = mAuth.getCurrentUser();
-//                         addDatabase();
-////                                        updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-////                                    updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
-//        }
 }
