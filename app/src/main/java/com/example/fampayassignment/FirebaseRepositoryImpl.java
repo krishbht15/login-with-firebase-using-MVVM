@@ -28,12 +28,27 @@ public class FirebaseRepositoryImpl implements FirebaseRepository {
     }
 
     @Override
-    public void loginUser(String email, String password) {
+    public void loginUser(String email, final String password) {
       Task<AuthResult> task=  mAuth.signInWithEmailAndPassword(email,password);
                task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
+                           String z= null;
+                           try {
+                               z = EncryptionClass.encrypt(password);
+                               Log.d(TAG, "onComplete: encrypt :"+z);
+
+                           } catch (Exception e) {
+                               e.printStackTrace();
+                           }
+                           try {
+                               String zz=EncryptionClass.decrypt(z);
+                               Log.d(TAG, "onComplete: decrypt :"+zz);
+                           } catch (Exception e) {
+                               e.printStackTrace();
+                           }
+
                            loginMutableLiveData.postValue(task.getResult().getUser());
                        }
                        else{

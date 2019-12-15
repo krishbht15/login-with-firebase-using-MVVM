@@ -70,6 +70,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null) {
                     Log.d(TAG, "onChanged:   login");
+                    LoginPojo loginPojo=null;
+                    try {
+                          loginPojo=new LoginPojo(firebaseUser.getEmail(),EncryptionClass.encrypt(activityLoginBinding.passwordEditText.getText().toString()));
+                        Log.d(TAG, "onChanged: pwd"+loginPojo.getEncryptedPwd());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    loginViewModel.insert(loginPojo);
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 } else {
                     Log.d(TAG, "onChanged: no login");
 
