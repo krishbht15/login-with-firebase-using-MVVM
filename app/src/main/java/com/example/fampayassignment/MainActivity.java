@@ -95,7 +95,8 @@ pos=position;
             public void onChanged(List<LoginPojo> loginPojos) {
              if(loginPojos.size()==0){
                  SharedPreferenceImpl.getInstance().remove(Constants.HAS_USERS,MainActivity.this);
-
+                 Log.d(TAG, "onChanged: snnslnalnsnslnasonol");
+                 finish();
 
              }
                 if (loginPojosList.size() < loginPojos.size()) {
@@ -137,7 +138,9 @@ activityMainBinding.signout.setOnClickListener(new View.OnClickListener() {
         AccountManager accountManager=AccountManager.get(MainActivity.this);
        accountManager.removeAccount(accountManager.getAccounts()[pos],null,null);
         mainActivityViewModel.deleteUser(loginPojosList.get(pos));
-        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        Intent intent= new Intent(MainActivity.this,LoginActivity.class);
+        intent.putExtra(Constants.HAS_USERS,1);
+        startActivity(intent);
         finish();
 
     }

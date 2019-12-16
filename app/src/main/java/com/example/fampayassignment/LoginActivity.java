@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         context = LoginActivity.this;
         check=getIntent().getIntExtra(Constants.ADD_USERS,0);
         if(SharedPreferenceImpl.getInstance().get(Constants.HAS_USERS,context).equals("y") && check==0){
-
+            Log.d(TAG, "onCreate: user hain"+check);
             startActivity(new Intent(context,MainActivity.class));
             finish();
         }

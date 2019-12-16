@@ -14,6 +14,7 @@
         android:text="Sign In"
         android:id="@+id/signinText"
         android:textSize="@dimen/dimen_40sp"
+
         android:textColor="@color/black"
         app:fontFamily="@font/lato_black"
         android:layout_marginTop="@dimen/dimen_32dp"
@@ -22,6 +23,9 @@
 
     <EditText
         android:textSize="@dimen/dimen_16sp"
+        android:hint="Email"
+        android:textColorHint="#2a9fff"
+
         android:fontFamily="@font/circular_std_medium_family"
         android:textColor="@color/black"
         android:layout_marginLeft="@dimen/dimen_32dp"
@@ -47,6 +51,8 @@
         android:layout_marginRight="@dimen/dimen_32dp"
         android:elevation="@dimen/dimen_8dp"
         android:layout_width="match_parent"
+        android:hint="Password"
+        android:textColorHint="#2a9fff"
 
         android:layout_height="@dimen/dimen_40dp"
         android:layout_below="@id/emailEditText"
@@ -58,9 +64,10 @@ android:id="@+id/passwordEditText"
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sigin"
         android:background="@drawable/common_button"
-        android:id="@+id/signInButton"
+        android:text="Create"
+        android:id="@+id/CreateAnAccount"
+
         android:layout_below="@id/passwordEditText"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/dimen_40dp"
@@ -70,9 +77,9 @@ android:id="@+id/passwordEditText"
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
-        android:id="@+id/CreateAnAccount"
         android:layout_below="@id/passwordEditText"
+        android:text="sigin"
+        android:id="@+id/signInButton"
 
         android:background="@drawable/common_button"
         android:layout_marginTop="@dimen/dimen_40dp"
